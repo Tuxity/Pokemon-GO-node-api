@@ -219,7 +219,7 @@ function Pokeio() {
             var pokemons = [];
 
             res.inventory_delta.inventory_items.forEach(function (item) {
-                if (item.inventory_item_data.pokemon) {
+                if (item.inventory_item_data.pokemon && !item.inventory_item_data.pokemon.is_egg) {
                     pokemons.push(item.inventory_item_data.pokemon);
                 }
             });
