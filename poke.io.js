@@ -214,6 +214,20 @@ function Pokeio() {
         });
     };
 
+    self.GetPokemonInventory = function (callback) {
+        self.GetInventory(function(err, res) {
+            var pokemons = [];
+
+            res.inventory_delta.inventory_items.forEach(function (item) {
+                if (item.inventory_item_data.pokemon) {
+                    pokemons.push(item.inventory_item_data.pokemon);
+                }
+            });
+
+            return callback(null, pokemons);
+        });
+    };
+
     self.GetProfile = function (callback) {
         var req = new RequestEnvelop.Requests(2);
         api_req(self.playerInfo.apiEndpoint, self.playerInfo.accessToken, req, function (err, f_ret) {

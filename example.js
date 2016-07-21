@@ -25,28 +25,22 @@ Pokeio.init(username, password, location, provider, function(err) {
         console.log('[i] Poke Storage: ' + profile.poke_storage);
         console.log('[i] Item Storage: ' + profile.item_storage);
 
-        var poke = 0;
+        var pokecoin = 0;
         if (profile.currency[0].amount) {
-            poke = profile.currency[0].amount;
+            pokecoin = profile.currency[0].amount;
         }
 
-        console.log('[i] Pokecoin: ' + poke);
+        console.log('[i] Pokecoin: ' + pokecoin);
         console.log('[i] Stardust: ' + profile.currency[1].amount);
 
 
-        Pokeio.Heartbeat(function(err,hb) {
+        Pokeio.GetPokemonInventory(function(err,res) {
             if(err) {
                 console.log(err);
             }
 
-            for (var i = hb.cells.length - 1; i >= 0; i--) {
-                if(hb.cells[i].NearbyPokemon[0]) {
-                    //console.log(Pokeio.pokemonlist[0])
-                    var pokemon = Pokeio.pokemonlist[parseInt(hb.cells[i].NearbyPokemon[0].PokedexNumber)-1]
-                    console.log('[+] There is a ' + pokemon.name + ' at ' + hb.cells[i].NearbyPokemon[0].DistanceMeters.toString() + ' meters')
-                }
-            }
-
+            console.log('[i] Pokemons: ' + res.length);
+            console.log(res);
         });
 
     });
